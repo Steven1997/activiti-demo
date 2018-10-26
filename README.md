@@ -1,0 +1,2 @@
+# activiti-demo
+基于Activiti框架实现的科研经费申请流程，第七届中国软件杯4AMNotNull团队参赛作品
