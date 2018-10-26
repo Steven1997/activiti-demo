@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Commit</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/css/apply.css"/>
+    <script src="/static/layui/layui.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="container">
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-col-md-offset3">
+                <div class="layui-row">
+                    <div class="layui-col-md5 layui-col-md-offset3">
+                        <h2 class="">科研经费使用申请表</h2>
+                    </div>
+                </div>
+                <hr/>
+
+                <form class="layui-form" action="" method="post">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-inline">
+                            <input disabled="" type="text" name="name" required=""  lay-verify="required" th:value="${info.getName()}" autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单位</label>
+                        <div class="layui-input-inline">
+                            <input disabled="" type="text" name="department" required=""  lay-verify="required" th:value="${info.getDepartment()}" autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">职称</label>
+                        <div class="layui-input-inline">
+                            <input disabled="" type="text" name="position" required=""  lay-verify="required" th:value="${info.getPosition()}" autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">联系电话</label>
+                        <div class="layui-input-inline">
+                            <input disabled="" type="text" name="tel" required=""  lay-verify="required" th:value="${info.getTel()}" autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">日期</label>
+                        <div class="layui-input-inline">
+                            <input disabled="" type="text" name="date" required=""  lay-verify="required" th:value="${info.getDate()}" autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">课题名称</label>
+                        <div class="layui-input-block">
+                            <textarea disabled="" name="project_name" class="layui-textarea" th:text="${info.getProjectName()}">content</textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">申请金额￥</label>
+                        <div class="layui-input-inline">
+                            <input disabled="" type="text" name="apply_sum" required=""  lay-verify="required" th:value="${info.getApplySum()}" autocomplete="off" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md5 layui-col-md-offset3">
+                            <h2 class="">历史记录</h2>
+                        </div>
+                    </div>
+                    <hr/>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col width="200">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>经办人</th>
+                            <th>处理时间</th>
+                            <th>处理意见</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="history : ${historyInfo}">
+                            <td th:text="${history.getName()}">经办人</td>
+                            <td th:text="${history.getDate()}">处理时间</td>
+                            <td th:text="${history.getComment()}">处理意见</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="layui-row">
+                    <div class="layui-col-md5 layui-col-md-offset3">
+                        <h2 class="">处理意见</h2>
+                    </div>
+                </div>
+                <hr/>
+                <form action= "/process/pass" method="POST">
+
+                    <div class="layui-row">
+                        <div class="layui-col-md4">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" value="pass" lay-filter="form-apply">通过</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md7 layui-col-md-offset1">
+                            <div class="layui-form-item">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="pass_reason" required=""  lay-verify="required" placeholder="通过理由" autocomplete="off" class="layui-input"/>
+                                    <input type="text" name="taskId" th:value="${info.getTaskId()}" style="visibility: collapse"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </form>
+
+                <form action="/process/reject" method="POST">
+                    <div class="layui-col-md4">
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn layui-bg-red" lay-submit="" value="reject" lay-filter="form-apply">驳回</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md7 layui-col-md-offset1">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline">
+                                <input type="text" name="reject_reason" required=""  lay-verify="required" placeholder="驳回理由" autocomplete="off" class="layui-input"/>
+                                <input type="text" name="taskId" th:value="${info.getTaskId()}" style="visibility: collapse"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form action="/process/rollback" method="POST" th:if="${backActivities.size() > 0}">
+                    <div class="layui-col-md4">
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn layui-bg-red" lay-submit="" value="reject" lay-filter="form-apply">退回至</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md7 layui-col-md-offset1">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline">
+                                <select id="back" name="back_activity_id">
+                                    <option  th:each="activity : ${backActivities}"
+                                            th:value="${activity.getTaskId()}" th:text="${activity.getTaskId()}">activity_id</option>
+                                </select>
+                                <input type="text" name="back_reason" required=""  lay-verify="required" placeholder="退回理由" autocomplete="off" class="layui-input"/>
+                                <input type="text" name="taskId" th:value="${info.getTaskId()}" style="visibility: collapse"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form,
+            $ = layui.$;
+
+        //监听提交
+        form.on('submit(form-apply)', function(data){
+            return true;
+        });
+
+    });
+
+    var opList = $("#back").children();
+    for(var i = 0;i < opList.size();i++){
+        switch (opList[i].innerText) {
+            case "userTask1":opList[i].innerText = "研究人员申请";break;
+            case "userTask2":opList[i].innerText = "组长审批";break;
+            case "userTask3":opList[i].innerText = "院办核准";break;
+            case "userTask4":opList[i].innerText = "副院长审批";break;
+            case "userTask5":opList[i].innerText = "院长审批";break;
+            case "userTask6":opList[i].innerText = "财务处工作人员复核";break;
+            case "userTask7":opList[i].innerText = "财务处长会签";break;
+            case "userTask8":opList[i].innerText = "财务副处长会签";break;
+            case "userTask9":opList[i].innerText = "校长终审";break;
+
+        }
+    }
+
+</script>
+</body>
+</html>

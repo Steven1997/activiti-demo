@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>index - activiti</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css"/>
+    <script src="/static/layui/layui.js"></script>
+</head>
+<body>
+<h2 align="center">已部署流程</h2>
+<table class="layui-table">
+    <colgroup>
+        <col width="150"/>
+        <col width="150"/>
+        <col width="150"/>
+        <col width="150"/>
+        <col width="150"/>
+        <col width="150"/>
+    </colgroup>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>流程名</th>
+        <th>Key</th>
+        <th>进入</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="process,processStat : ${processes}" >
+        <td th:text="${process.getId()}"></td>
+        <td th:text="${process.getName()}"></td>
+        <td th:text="${process.getKey()}"></td>
+        <td>
+            <a th:href="@{/enterProcess(key=${process.getKey()})}"><button class="layui-btn layui-btn-normal" id="enter-process">进入</button></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

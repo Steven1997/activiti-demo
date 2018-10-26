@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>管理 - activiti</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css"/>
+    <script src="/static/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo" th:text="${session.processKey}">ProcessKey Here</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" th:text="${session.loginUser}">
+                    用户ID
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">修改密码</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <font th:color="red">所属组:</font><span th:text="${session.userGroup}">用户组</span>
+            </li>
+            <li class="layui-nav-item"><a href="/quitLogin">退出登录</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree layui-anim layui-anim-upbit"  lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" >任务清单</a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/process(op=0)}">已提交</a></dd>
+                        <dd><a th:href="@{/process(op=1)}">待处理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" th:href="@{/process(op=2)}">发起流程</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;" id="admin-content" class="layui-anim layui-anim-up"></div>
+    </div>
+</div>
+
+
+
+<div style="display:none">
+    <!-- 所有申请块的主体页面 -->
+    <div id="all-apply">
+        Activiti Demo
+    </div>
+
+    <!--&lt;!&ndash; 已提交申请的主题页面 &ndash;&gt;-->
+    <div id="did-apply">
+    <table class="layui-table" id="commit-apply">
+    <colgroup>
+    <col width="150"/>
+    <col width="200"/>
+    <col/>
+    </colgroup>
+    <thead>
+    <tr>
+        <th>流程ID</th>
+        <th>发起人</th>
+        <th>创建时间</th>
+        <th>项目名称</th>
+        <th>当前状态</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="info : ${handledInfoList}">
+            <td th:text="${info.getProcessId()}">processId</td>
+            <td th:text="${info.getName()}">starterName</td>
+            <td th:text="${info.getDate()}">date</td>
+            <td th:text="${info.getProjectName()}">projectName</td>
+            <td th:text="${info.getCurrentStatus()}">currentStatus</td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+
+    <!--&lt;!&ndash; 未处理申请的主题页面 &ndash;&gt;-->
+    <div id="no-apply">
+    <table class="layui-table" id="commit-apply">
+    <colgroup>
+    <col width="200"/>
+    <col width="200"/>
+    <col width="200"/>
+    <col/>
+    </colgroup>
+    <thead>
+    <tr>
+    <th>任务ID</th>
+    <th>创建时间</th>
+    <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 待签收 -->
+    <tr th:each="task : ${claimTaskList}">
+        <td th:text="${task.getTaskId()}">taskId</td>
+        <td th:text="${task.getDate()}">createTime</td>
+        <td><a class="layui-btn layui-btn-normal" th:href="@{/process/claim(taskId=${task.getTaskId()})}">签收</a></td>
+    </tr>
+    <!-- 待处理 -->
+    <tr th:each="task : ${taskList}">
+        <td th:text="${task.getTaskId()}">taskId</td>
+        <td th:text="${task.getDate()}">createTime</td>
+        <td><a class="layui-btn layui-btn-normal" th:href="@{/process/execute(taskId=${task.getTaskId()})}">处理</a></td>
+    </tr>
+    </table>
+    </div>
+
+
+    <!--&lt;!&ndash; 提交申请块的主体页面  &ndash;&gt;-->
+    <div id="write-apply">
+    <div class="container">
+    <div class="layui-row">
+    <div class="layui-col-md6 layui-col-md-offset3">
+    <div class="layui-row">
+    <div class="layui-col-md6 layui-col-md-offset3">
+    <h2 class="">科研经费使用申请表</h2>
+    </div>
+    </div>
+    <hr/>
+
+    <form class="layui-form" action="/process/startEvent" method="post">
+    <div class="layui-form-item">
+    <label class="layui-form-label">姓名</label>
+    <div class="layui-input-inline">
+    <input type="text" name="name" required=""  lay-verify="required" placeholder="姓名" autocomplete="off" class="layui-input" th:value="${session.loginUser}"/>
+    </div>
+    </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">单位</label>
+    <div class="layui-input-inline">
+    <input type="text" name="department" required=""  lay-verify="required" placeholder="单位" autocomplete="off" class="layui-input"/>
+    </div>
+    </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">职称</label>
+    <div class="layui-input-inline">
+    <input type="text" name="position" required=""  lay-verify="required" placeholder="职称" autocomplete="off" class="layui-input"/>
+    </div>
+    </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">联系电话</label>
+    <div class="layui-input-inline">
+    <input type="text" name="tel" required=""  lay-verify="required" placeholder="联系电话" autocomplete="off" class="layui-input"/>
+    </div>
+    </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">日期</label>
+    <div class="layui-input-inline">
+    <input disabled = "" type="text" name="date" required=""  lay-verify="required" th:value="${session.date}" autocomplete="off" class="layui-input"/>
+    </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">课题名称</label>
+    <div class="layui-input-block">
+    <textarea name="project_name" placeholder="请输入内容" class="layui-textarea"></textarea>
+    </div>
+    </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">申请金额￥</label>
+    <div class="layui-input-inline">
+    <input type="text" name="apply_sum" required=""  lay-verify="required" placeholder="申请金额" autocomplete="off" class="layui-input"/>
+    </div>
+    </div>
+
+    <div class="layui-form-item">
+    <div class="layui-input-block">
+    <button class="layui-btn" lay-submit="" lay-filter="form-apply">立即提交</button>
+    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <script type="text/javascript">
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if( r != null )
+                return unescape(r[2]);
+            return null;
+        }
+
+
+        layui.use(['element','form','jquery'], function(){
+            var element = layui.element,
+                form = layui.form,
+                $ = layui.$;
+
+            var op = GetQueryString("op");
+            var contentDom; //页面主体内容的节点
+            var admin_content = document.getElementById("admin-content"); //要显示内容的节点
+            var num = 0;
+            if(op == "" || op == null){
+                contentDom = document.getElementById("all-apply");
+            }else if(op == "0"){
+                contentDom = document.getElementById("did-apply");
+                num = 1;
+            }
+            else if(op == "1"){
+                contentDom = document.getElementById("no-apply");
+                num = 2;
+            }else if(op == "2"){
+                contentDom = document.getElementById("write-apply");
+                num = 3;
+            }
+            else{
+                contentDom = "404 not found!";
+                num = 4;
+            }
+            if(num != 4){ //将对应的链接切换
+                $(".layui-nav-tree li a")[num].setAttribute("class","layui-bg-green");
+                $("#admin-content").append(contentDom);
+            }else{
+                $("#admin-content").innerHTML = contentDom;
+            }
+            //监听提交
+            form.on('submit(form-apply)', function(data){
+                //layer.msg(JSON.stringify(data.field));
+                return true;
+            });
+        });
+    </script>
+</body>
+</html>

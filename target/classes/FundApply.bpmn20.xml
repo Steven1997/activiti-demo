@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="fundApply" name="科研经费申请流程" isExecutable="true">
+    <startEvent id="startEvent" name="开始">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="userTask1" name="研究人员申请" activiti:candidateGroups="研究人员">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-58B374B8-0284-4530-B391-9FAFC8F22240" sourceRef="startEvent" targetRef="userTask1"></sequenceFlow>
+    <userTask id="userTask2" name="组长审批" activiti:candidateGroups="组长">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-C9199904-C214-4D55-AB89-2DF5C72DC3AF" sourceRef="userTask1" targetRef="userTask2"></sequenceFlow>
+    <userTask id="userTask3" name="院办核准" activiti:candidateGroups="院办公室负责人">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-3D1AD63E-9989-4839-8A6A-38E693E52D6A" sourceRef="userTask2" targetRef="userTask3"></sequenceFlow>
+    <exclusiveGateway id="ExclusiveGateway1" name="经费支出"></exclusiveGateway>
+    <sequenceFlow id="sid-9AF901B4-9304-4D72-9FFD-8A3098D2006A" sourceRef="userTask3" targetRef="ExclusiveGateway1"></sequenceFlow>
+    <userTask id="userTask4" name="副院长审批" activiti:candidateGroups="副院长">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="userTask5" name="院长审批" activiti:candidateGroups="院长">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="userTask6" name="财务处工作人员复核" activiti:candidateGroups="财务处工作人员">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-2C42C8FE-7E46-4C26-9DA5-A827AA2F3C60" sourceRef="userTask4" targetRef="userTask6"></sequenceFlow>
+    <userTask id="userTask9" name="校长终审" activiti:candidateGroups="校长">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endEvent" name="结束"></endEvent>
+    <sequenceFlow id="sid-03F30168-ABF5-4655-8C07-4DEB0C9CBEC0" sourceRef="userTask9" targetRef="endEvent"></sequenceFlow>
+    <sequenceFlow id="sid-F70B0CDD-4EC7-4A14-BE83-F212863D2DE2" sourceRef="userTask6" targetRef="fork"></sequenceFlow>
+    <parallelGateway id="fork" name="并行会签"></parallelGateway>
+    <userTask id="userTask7" name="财务处长会签" activiti:candidateGroups="财务处长">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="userTask8" name="财务副处长会签" activiti:candidateGroups="财务副处长">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" expression="#{info.name}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="department" name="单位" type="string" expression="#{info.department}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="position" name="职称" type="string" expression="#{info.position}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="联系电话" type="string" expression="#{info.tel}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="data" name="日期" type="date" expression="#{info.date}" variable="info" datePattern="yyyy/MM/dd" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="project_name" name="课题名称" type="string" expression="#{info.projectName}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="apply_sum" name="申请金额￥" type="long" expression="#{info.applySum}" variable="info" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="status" name="状态" type="boolean" expression="#{info.status}" variable="info" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-33AEE18A-303B-4CA2-B076-7D6F82FD97B4" sourceRef="fork" targetRef="userTask7"></sequenceFlow>
+    <sequenceFlow id="sid-AC9ED690-25CA-43D0-ADCC-E68850C0E4A4" sourceRef="userTask5" targetRef="userTask6"></sequenceFlow>
+    <sequenceFlow id="sid-29E1B00E-854A-4376-BE86-97DB5A856C91" sourceRef="userTask8" targetRef="join"></sequenceFlow>
+    <parallelGateway id="join"></parallelGateway>
+    <sequenceFlow id="sid-C9BB9184-AA79-4FA9-A1FC-8436977A44F6" sourceRef="join" targetRef="userTask9"></sequenceFlow>
+    <sequenceFlow id="sid-FF87A09D-31F9-4561-AC31-A6DCD0EC06CC" sourceRef="userTask7" targetRef="join"></sequenceFlow>
+    <sequenceFlow id="sid-1CE3AA57-59D8-435A-BC66-1AD123AE8DAF" sourceRef="fork" targetRef="userTask8"></sequenceFlow>
+    <sequenceFlow id="sid-B1526E47-14B4-4D6B-B1FB-4A40112836DB" name="经费支出大于等于5000" sourceRef="ExclusiveGateway1" targetRef="userTask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${money >= 5000}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-A2D953BA-D1DF-44C1-9B77-20F2FFC53DE8" name="经费支出小于5000" sourceRef="ExclusiveGateway1" targetRef="userTask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${money < 5000}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fundApply">
+    <bpmndi:BPMNPlane bpmnElement="fundApply" id="BPMNPlane_fundApply">
+      <bpmndi:BPMNShape bpmnElement="startEvent" id="BPMNShape_startEvent">
+        <omgdc:Bounds height="30.0" width="30.0" x="30.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask1" id="BPMNShape_userTask1">
+        <omgdc:Bounds height="68.8" width="85.99999999999999" x="90.00000000000001" y="100.60000000000004"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask2" id="BPMNShape_userTask2">
+        <omgdc:Bounds height="67.99999999999999" width="84.99999999999997" x="195.00000000000003" y="101.00000000000001"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask3" id="BPMNShape_userTask3">
+        <omgdc:Bounds height="65.99999999999997" width="82.5" x="300.0" y="102.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ExclusiveGateway1" id="BPMNShape_ExclusiveGateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="420.0" y="115.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask4" id="BPMNShape_userTask4">
+        <omgdc:Bounds height="70.39999999999998" width="88.0" x="510.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask5" id="BPMNShape_userTask5">
+        <omgdc:Bounds height="70.0" width="87.5" x="510.0" y="25.799999999999997"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask6" id="BPMNShape_userTask6">
+        <omgdc:Bounds height="65.60000000000002" width="82.0" x="615.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask9" id="BPMNShape_userTask9">
+        <omgdc:Bounds height="63.800000000000026" width="79.75" x="915.0000000000001" y="103.10000000000001"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+        <omgdc:Bounds height="28.0" width="28.0" x="1020.0" y="123.80000000000001"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fork" id="BPMNShape_fork">
+        <omgdc:Bounds height="39.999999999999986" width="40.0" x="720.0000000000001" y="115.00000000000001"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask7" id="BPMNShape_userTask7">
+        <omgdc:Bounds height="61.599999999999994" width="77.0" x="735.0000000000001" y="15.000000000000002"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask8" id="BPMNShape_userTask8">
+        <omgdc:Bounds height="61.99999999999997" width="77.5" x="734.7500000000002" y="184.20000000000002"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="join" id="BPMNShape_join">
+        <omgdc:Bounds height="40.000000000000014" width="40.0" x="825.0" y="114.99999999999999"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-F70B0CDD-4EC7-4A14-BE83-F212863D2DE2" id="BPMNEdge_sid-F70B0CDD-4EC7-4A14-BE83-F212863D2DE2">
+        <omgdi:waypoint x="697.0" y="136.43333333333334"></omgdi:waypoint>
+        <omgdi:waypoint x="720.6451612903227" y="135.6451612903226"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A2D953BA-D1DF-44C1-9B77-20F2FFC53DE8" id="BPMNEdge_sid-A2D953BA-D1DF-44C1-9B77-20F2FFC53DE8">
+        <omgdi:waypoint x="451.740473738414" y="143.259526261586"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="184.24561403508773"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-58B374B8-0284-4530-B391-9FAFC8F22240" id="BPMNEdge_sid-58B374B8-0284-4530-B391-9FAFC8F22240">
+        <omgdi:waypoint x="60.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="90.00000000000001" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1CE3AA57-59D8-435A-BC66-1AD123AE8DAF" id="BPMNEdge_sid-1CE3AA57-59D8-435A-BC66-1AD123AE8DAF">
+        <omgdi:waypoint x="742.8000000000002" y="152.2"></omgdi:waypoint>
+        <omgdi:waypoint x="773.5000000000002" y="152.2"></omgdi:waypoint>
+        <omgdi:waypoint x="773.5000000000002" y="184.20000000000002"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-33AEE18A-303B-4CA2-B076-7D6F82FD97B4" id="BPMNEdge_sid-33AEE18A-303B-4CA2-B076-7D6F82FD97B4">
+        <omgdi:waypoint x="740.0000000000001" y="115.00000000000001"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0000000000001" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="773.5000000000001" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="773.5000000000001" y="76.6"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3D1AD63E-9989-4839-8A6A-38E693E52D6A" id="BPMNEdge_sid-3D1AD63E-9989-4839-8A6A-38E693E52D6A">
+        <omgdi:waypoint x="280.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-03F30168-ABF5-4655-8C07-4DEB0C9CBEC0" id="BPMNEdge_sid-03F30168-ABF5-4655-8C07-4DEB0C9CBEC0">
+        <omgdi:waypoint x="994.7500000000001" y="136.41105845181676"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0087574770705" y="137.30489125985213"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9AF901B4-9304-4D72-9FFD-8A3098D2006A" id="BPMNEdge_sid-9AF901B4-9304-4D72-9FFD-8A3098D2006A">
+        <omgdi:waypoint x="382.5" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-29E1B00E-854A-4376-BE86-97DB5A856C91" id="BPMNEdge_sid-29E1B00E-854A-4376-BE86-97DB5A856C91">
+        <omgdi:waypoint x="812.2500000000002" y="215.2"></omgdi:waypoint>
+        <omgdi:waypoint x="845.0" y="215.2"></omgdi:waypoint>
+        <omgdi:waypoint x="845.0" y="155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-FF87A09D-31F9-4561-AC31-A6DCD0EC06CC" id="BPMNEdge_sid-FF87A09D-31F9-4561-AC31-A6DCD0EC06CC">
+        <omgdi:waypoint x="812.0000000000001" y="45.8"></omgdi:waypoint>
+        <omgdi:waypoint x="845.0" y="45.8"></omgdi:waypoint>
+        <omgdi:waypoint x="845.0" y="114.99999999999999"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B1526E47-14B4-4D6B-B1FB-4A40112836DB" id="BPMNEdge_sid-B1526E47-14B4-4D6B-B1FB-4A40112836DB">
+        <omgdi:waypoint x="460.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="531.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="543.0188679245283" y="95.8"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C9199904-C214-4D55-AB89-2DF5C72DC3AF" id="BPMNEdge_sid-C9199904-C214-4D55-AB89-2DF5C72DC3AF">
+        <omgdi:waypoint x="176.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="195.00000000000003" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-AC9ED690-25CA-43D0-ADCC-E68850C0E4A4" id="BPMNEdge_sid-AC9ED690-25CA-43D0-ADCC-E68850C0E4A4">
+        <omgdi:waypoint x="597.5" y="60.45770171149144"></omgdi:waypoint>
+        <omgdi:waypoint x="656.0" y="60.0"></omgdi:waypoint>
+        <omgdi:waypoint x="656.0" y="105.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-2C42C8FE-7E46-4C26-9DA5-A827AA2F3C60" id="BPMNEdge_sid-2C42C8FE-7E46-4C26-9DA5-A827AA2F3C60">
+        <omgdi:waypoint x="554.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="554.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="615.0" y="137.47843137254904"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C9BB9184-AA79-4FA9-A1FC-8436977A44F6" id="BPMNEdge_sid-C9BB9184-AA79-4FA9-A1FC-8436977A44F6">
+        <omgdi:waypoint x="865.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="915.0000000000001" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
